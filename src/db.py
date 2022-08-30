@@ -1,10 +1,13 @@
 import os
+from typing import List
 from urllib.parse import quote_plus
 
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import declarative_base, sessionmaker
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, or_
 from sqlalchemy.future import select
+
+from src.models import VideoData as VideoDataModel
 
 MYSQL_USERNAME = os.environ["MYSQL_USERNAME"]
 MYSQL_PASSWORD = os.environ["MYSQL_PASSWORD"]
@@ -32,15 +35,54 @@ class VideoData(Base):
     video_url = Column(String)
 
 
-async def query():
+async def write_query(video_data_list: List[VideoDataModel]):
     async with Session() as session:
         async with session.begin():
-            result = await session.execute(select(VideoData).order_by(VideoData.id))
-            a1 = result.scalars().first()
+            video_data_row_list = []
+            for video_data in video_data_list:
+                video_data_row = VideoData(
+                    title=video_data.title, 
+                    description=video_data.description, 
+                    publishing_datetime=video_data.publishing_datetime,
+                    thumbnail_urls=video_data.thumbnail_urls,
+                    video_url=video_data.video_url
+                )
+
+                video_data_row_list.append(video_data_row)
+            session.add_all(video_data_row_list)
 
             await session.commit()
-            
-            if a1 is not None:
-                print(a1.data)
-            else:
-                print("a1 is None!")
+
+
+async def get_query():
+    async with Session() as session:
+        output = []
+        async with session.begin():
+            result = await session.execute(select(VideoData))
+            output = result.scalars().all()
+
+            await session.commit()
+        return output
+
+
+async def search_query(search_string: str):
+    search_string = "%" + search_string.replace(" ", "%") + "%"
+
+    async with Session() as session:
+        output = []
+        async with session.begin():
+            result = await session.execute(
+                        select(VideoData).filter(
+                            or_(
+                                VideoData.title.like(search_string), 
+                                VideoData.description.like(search_string)
+                            )
+                        )
+                    )
+            try:
+                output = result.scalars.all()
+            except Exception as e:
+                output = []
+
+            await session.commit()
+        return output

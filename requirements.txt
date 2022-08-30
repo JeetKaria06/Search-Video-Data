@@ -3,3 +3,6 @@ uvicorn~=0.18.3
 python-dotenv~=0.20.0
 sqlalchemy~=1.4.40
 aiomysql~=0.1.1
+google-api-python-client~=2.58.0
+fastapi-utils~=0.2.1
+fastapi-pagination~=0.9.3
