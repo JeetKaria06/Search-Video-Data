@@ -13,6 +13,8 @@ MYSQL_TABLENAME=video_data
 YT_API_KEY=
 ```
 
+> Create the `.env` file with the above environment variables.
+
 ## How to run?
 
 * **Step-1** <br/>
