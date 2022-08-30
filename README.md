@@ -15,15 +15,15 @@ YT_API_KEY = ""
 
 ## How to run?
 
-* Step-1 <br/>
+* **Step-1** <br/>
 Clone this repository into your local PC and create a virtual environment (Recommended Python Version ~ 3.8.0) and activate it.
 
-* Step-2 <br/>
+* **Step-2** <br/>
 Installing the requirements present in `requirements.txt` with the below command.
 
 ```
 pip install -r requirements.txt
 ```
 
-* Step-3 <br/>
+* **Step-3** <br/>
 
