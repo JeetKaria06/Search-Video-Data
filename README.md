@@ -35,3 +35,16 @@ Run the below command to run the image created.
 ```
 docker run --env-file <path-to-env-file> --network host video-fetch
 ```
+
+
+## API Testing
+After going to http://localhost:8000/docs and you will see bunch of API endpoints and their input parameters.
+
+### GET API
+![image.png](./assets/get_endpoint.png)
+
+Enter the desired values like `page number` in `page` field and `number of records in each page` in `size` field and press execute to get the results.
+
+### Basic Search - POST API
+![image1.png](./assets/basic_search.png)
+Same way entering values like `page` and `size` field for paginated response. And entering search string in POST body will fetch the results corresponding to the search query and then press execute.
