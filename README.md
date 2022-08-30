@@ -3,27 +3,33 @@
 ## Environment Variables
 
 ```
-MYSQL_USERNAME = "root"
-MYSQL_PASSWORD = ""
-MYSQL_HOSTNAME = "localhost"
-MYSQL_PORT = "3306"
-MYSQL_DBNAME = "videoDB"
-POOL_SIZE = "5"
-MYSQL_TABLENAME = "video_data"
-YT_API_KEY = ""
+MYSQL_USERNAME=root
+MYSQL_PASSWORD=
+MYSQL_HOSTNAME=localhost
+MYSQL_PORT=3306
+MYSQL_DBNAME=videoDB
+POOL_SIZE=5
+MYSQL_TABLENAME=video_data
+YT_API_KEY=
 ```
 
 ## How to run?
 
 * **Step-1** <br/>
-Clone this repository into your local PC and create a virtual environment (Recommended Python Version ~ 3.8.0) and activate it.
+Clone this repository into your local PC using below command.
+```
+git clone https://github.com/JeetKaria06/Search-Video-Data.git
+```
+And `cd` to the directory.
 
 * **Step-2** <br/>
-Installing the requirements present in `requirements.txt` with the below command.
-
+Run the below command to build the image named `video-fetch`.
 ```
-pip install -r requirements.txt
+docker build -t video-fetch .
 ```
 
 * **Step-3** <br/>
-
+Run the below command to run the image created.
+```
+docker run --env-file <path-to-env-file> --network host video-fetch
+```

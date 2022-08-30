@@ -10,7 +10,7 @@ app = FastAPI()
 
 @app.get("/health")
 async def health():
-    return ["Hi from Fampay Backend Assignment!"]
+    return ["Hi from YT Video Fetching and Searching!"]
 
 
 @app.on_event("startup")
