@@ -80,7 +80,7 @@ async def search_query(search_string: str):
                         )
                     )
             try:
-                output = result.scalars.all()
+                output = result.scalars().all()
             except Exception as e:
                 output = []
 
